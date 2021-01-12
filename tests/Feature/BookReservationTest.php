@@ -13,7 +13,6 @@ class BookReservationTest extends TestCase
     /** @test */
     public function a_book_can_be_added_to_the_library(){
 
-        $this->withoutExceptionHandling();
 
         $response = $this->post('/books', [
             'title' => 'Title of my book',
@@ -45,8 +44,6 @@ class BookReservationTest extends TestCase
     /** @test  */
     function a_book_can_be_updated(){
 
-        $this->withoutExceptionHandling();
-
         $this->post('/books', [
             'title' => 'Title of my book',
             'author' => 'Richard Saavedra'
@@ -58,6 +55,22 @@ class BookReservationTest extends TestCase
         ]);
         $this->assertEquals('Updated Title of my book', Book::first()->title);
         $this->assertEquals('Richard Saavedra Updated', Book::first()->author);
+    }
+    /** @test  */
+    public function a_book_can_be_deleted(){
+        $this->withoutExceptionHandling();
+
+        $this->post('/books', [
+            'title' => 'Title of my book',
+            'author' => 'Richard Saavedra'
+        ]);
+
+        $book = Book::first();
+        $this->assertCount(1, Book::all());
+
+        $response = $this->delete('/books/' . $book->id);
+        $this->assertCount(0, Book::all());
+
     }
 
 }
