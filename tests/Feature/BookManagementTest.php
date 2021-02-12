@@ -56,7 +56,7 @@ class BookManagementTest extends TestCase
         ));
 
         $this->assertEquals('Updated Title of my book', Book::first()->title);
-        $this->asser tEquals(2, Book::first()->author_id);
+        $this->assertEquals(2, Book::first()->author_id);
 
         $response->assertRedirect($book->fresh()->path());
     }
