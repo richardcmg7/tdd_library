@@ -62,6 +62,8 @@ class BookCheckoutTest extends TestCase
 
         $this->actingAs($user)
             ->post('/checkout/'. $book->id);
+
+
         $this->actingAs($user)
             ->post('/checkin/'. $book->id);
 
@@ -94,6 +96,7 @@ class BookCheckoutTest extends TestCase
         $this->assertNull(Reservation::first()->checked_in_at );
 
     }
+
     /**      @test    */
     public function a_404_is_thrown_if_a_book_is_not_checked_out_first()
     {
